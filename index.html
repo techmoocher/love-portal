@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Portal</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Love <span>Portal</span></h1>
+                <i class="fas fa-heart heart-icon"></i>
+            </div>
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="username"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" value="admin" readonly>
+                </div>
+                <div class="input-group">
+                    <label for="password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" required>
+                    <i class="far fa-eye toggle-password"></i>
+                </div>
+                <div class="error-message" id="error-message"></div>
+                <button type="submit" class="login-button">
+                    Login <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+        <div class="login-footer">
+            <p>Made with <i class="fas fa-heart"></i> by <i><b>@techmoocher</b></i></p>
+        </div>
+    </div>
+    
+    <script src="scripts/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Portal</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <a href="dashboard.html">Love Portal</a>
+                <div class="welcome-message">Welcome, Ngọc Ánh <i class="fas fa-heart"></i></div>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li>
+                        <a href="#" class="nav-link active" data-category="all">
+                            <i class="fas fa-border-all"></i> All
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" data-category="morning">
+                            <i class="fas fa-sun"></i> Morning
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" data-category="night">
+                            <i class="fas fa-moon"></i> Night
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link" data-category="misc">
+                            <i class="fas fa-puzzle-piece"></i> Miscellaneous
+                        </a>
+                    </li>
+                    <li class="logout-item">
+                        <a href="index.html" class="nav-link logout">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <span class="toggle-label">Dark Mode</span>
+                <label class="switch">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </aside>
+        
+        <main class="content">
+            <header>
+                <div class="header-content">
+                    <h1 class="category-title">All</h1>
+                    <div class="date-time" id="current-date-time"></div>
+                </div>
+                <div class="header-message">
+                    Made specifically for you ❤️
+                </div>
+            </header>
+            
+            <div class="gallery">
+                <!-- Morning Projects -->
+                <a href="https://for-her.techmoocher.com/good-morning" target="_blank" class="project-card" data-category="morning">
+                    <div class="card-image">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Good morning</h3>
+                    </div>
+                </a>
+
+                <a href="https://for-her.techmoocher.com/have-a-nice-day" target="_blank" class="project-card" data-category="morning">
+                    <div class="card-image">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Have a nice day</h3>
+                    </div>
+                </a>
+                
+                <!-- Night Projects -->
+                <a href="https://for-her.techmoocher.com/good-night" target="_blank" class="project-card" data-category="night">
+                    <div class="card-image">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Good night</h3>
+                    </div>
+                </a>
+                
+                <!-- Miscellaneous Projects -->
+                <a href="https://for-her.techmoocher.com/recharge" target="_blank" class="project-card" data-category="misc">
+                    <div class="card-image">
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Recharge</h3>
+                    </div>
+                </a>
+
+                <a href="https://for-her.techmoocher.com/hello-there" target="_blank" class="project-card" data-category="misc">
+                    <div class="card-image">
+                        <img src="images/hello.svg" alt="Hello" style="width: 80px; height: 80px;">
+                    </div>
+                    <div class="card-content">
+                        <h3>Hello there!</h3>
+                    </div>
+                </a>
+            </div>
+        </main>
+    </div>
+    
+    <div id="logout-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-sign-out-alt"></i> Confirm Logout</h3>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to logout?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-logout" class="btn btn-cancel">Cancel</button>
+                <button id="confirm-logout" class="btn btn-confirm">Yes, Logout</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="scripts/dashboard.js"></script>
+</body>
+</html>
