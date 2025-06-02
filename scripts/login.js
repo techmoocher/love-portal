@@ -72,4 +72,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     `;
     document.head.appendChild(style);
+    
+    // Simple credential validation (replace with your actual validation)
+    function isValidCredentials(username, password) {
+        // Replace with your actual validation logic
+        return username === 'ngocanh' && password === 'yourpassword';
+    }
+    
+    // Generate a simple token
+    function generateToken() {
+        return Math.random().toString(36).substring(2) + Date.now().toString(36);
+    }
 });
