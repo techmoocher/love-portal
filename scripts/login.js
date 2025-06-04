@@ -1,86 +1,147 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('login-form');
-    const errorMessage = document.getElementById('error-message');
-    const togglePassword = document.querySelector('.toggle-password');
-    const passwordInput = document.getElementById('password');
-    const usernameInput = document.getElementById('username');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const projectCards = document.querySelectorAll('.project-card');
+    const categoryTitle = document.querySelector('.category-title');
+    const currentDateTimeElement = document.getElementById('current-date-time');
+    const themeToggle = document.getElementById('theme-toggle');
+    const logoutLink = document.querySelector('.nav-link.logout');
+    const logoutModal = document.getElementById('logout-modal');
+    const cancelLogout = document.getElementById('cancel-logout');
+    const confirmLogout = document.getElementById('confirm-logout');
     
-    // Default login credentials
-    const validUsername = 'admin';
-    const validPassword = 'ngoc@nh_11072002!';
-    
-    // Set default username and make it unchangeable
-    if (usernameInput) {
-        usernameInput.value = validUsername;
-        usernameInput.setAttribute('readonly', true);
-        usernameInput.style.backgroundColor = '#f0f0f0';
-    }
-    
-    // Toggle password visibility
-    if (togglePassword) {
-        togglePassword.addEventListener('click', () => {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            togglePassword.classList.toggle('fa-eye');
-            togglePassword.classList.toggle('fa-eye-slash');
-        });
-    }
-    
-    // Handle form submission
-    if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
+    // Logout confirmation handling
+    if (logoutLink && logoutModal) {
+        logoutLink.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            // Validate credentials
-            if (username === validUsername && password === validPassword) {
-                // For added effect, show a loading message
-                errorMessage.textContent = '';
-                errorMessage.style.color = '#4CAF50';
-                errorMessage.textContent = 'Login successful! Enjoy your journey...';
-                
-                // Redirect to dashboard
-                setTimeout(() => {
-                    window.location.href = 'dashboard.html';
-                }, 1000);
-            } else {
-                // Show error message
-                errorMessage.style.color = '#ff3860';
-                errorMessage.textContent = 'Invalid password';
-                
-                // Shake animation for error feedback
-                loginForm.classList.add('shake');
-                setTimeout(() => {
-                    loginForm.classList.remove('shake');
-                }, 500);
+            logoutModal.classList.add('active');
+        });
+        
+        // Close modal when Cancel is clicked
+        if (cancelLogout) {
+            cancelLogout.addEventListener('click', () => {
+                logoutModal.classList.remove('active');
+            });
+        }
+        
+        // Confirm logout and redirect
+        if (confirmLogout) {
+            confirmLogout.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        }
+        
+        logoutModal.addEventListener('click', (e) => {
+            if (e.target === logoutModal) {
+                logoutModal.classList.remove('active');
+            }
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && logoutModal.classList.contains('active')) {
+                logoutModal.classList.remove('active');
             }
         });
     }
     
-    // Add shake animation
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-        .shake {
-            animation: shake 0.5s ease-in-out;
-        }
-    `;
-    document.head.appendChild(style);
+    // Check for saved theme preference or use default
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
     
-    // Simple credential validation (replace with your actual validation)
-    function isValidCredentials(username, password) {
-        // Replace with your actual validation logic
-        return username === 'ngocanh' && password === 'yourpassword';
+    // Initialize theme toggle state
+    if (themeToggle) {
+        themeToggle.checked = savedTheme === 'dark';
+        
+        // Add theme toggle event listener
+        themeToggle.addEventListener('change', () => {
+            const theme = themeToggle.checked ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        });
     }
     
-    // Generate a simple token
-    function generateToken() {
-        return Math.random().toString(36).substring(2) + Date.now().toString(36);
+    // Update date and time with specified format
+    function updateDateTime() {
+        const now = new Date();
+        
+        // Format the date: e.g., "July 15, 2023"
+        const dateOptions = { month: 'long', day: 'numeric', year: 'numeric' };
+        const formattedDate = now.toLocaleDateString('en-US', dateOptions);
+        
+        // Format the time in 12-hour format: e.g., "2:45 PM"
+        const timeOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
+        const formattedTime = now.toLocaleTimeString('en-US', timeOptions);
+        
+        // Set the formatted date and time with bold tags
+        if (currentDateTimeElement) {
+            currentDateTimeElement.innerHTML = `<b>${formattedDate}</b> @ <b>${formattedTime}</b>`;
+        }
+    }
+    
+    // Initial date/time update
+    if (currentDateTimeElement) {
+        updateDateTime();
+        // Update every second
+        setInterval(updateDateTime, 1000);
+    }
+    
+    // Add click event listeners to all navigation links (except logout)
+    navLinks.forEach(link => {
+        if (!link.classList.contains('logout')) {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                navLinks.forEach(item => item.classList.remove('active'));
+                
+                // Add active class to clicked link
+                link.classList.add('active');
+                
+                // Get the selected category
+                const category = link.getAttribute('data-category');
+                
+                // Update the category title
+                if (category === 'all') {
+                    categoryTitle.textContent = 'All';
+                } else if (category === 'morning') {
+                    categoryTitle.textContent = 'Morning';
+                } else if (category === 'night') {
+                    categoryTitle.textContent = 'Night';
+                } else if (category === 'misc') {
+                    categoryTitle.textContent = 'Miscellaneous';
+                }
+                
+                // Filter the projects based on category
+                projectCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.classList.remove('hidden');
+                        // Add a slight delay to the animation to create a staggered effect
+                        setTimeout(() => {
+                            card.style.animation = 'none';
+                            card.offsetHeight; // Trigger reflow
+                            card.style.animation = null;
+                        }, 10);
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        }
+    });
+    
+    // Add a welcome greeting based on time of day
+    const hour = new Date().getHours();
+    const welcomeMessage = document.querySelector('.welcome-message');
+    
+    if (welcomeMessage) {
+        let greeting;
+        if (hour >= 5 && hour < 12) {
+            greeting = "Good morning";
+        } else if (hour >= 12 && hour < 18) {
+            greeting = "Good afternoon";
+        } else {
+            greeting = "Good evening";
+        }
+        
+        welcomeMessage.innerHTML = `${greeting}, Ngọc Ánh`;
     }
 });
