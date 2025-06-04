@@ -19,7 +19,6 @@
 [data-theme="dark"] {
     --primary: #9B59B6;
     --primary-light: #BB8FCE;
-    /* --primary-dark: #7D3C98; */
     --primary-dark:rgb(170, 82, 240);
     --secondary: #E74C3C;
     --secondary-light: #F1948A;
@@ -47,6 +46,89 @@ body {
     line-height: 1.6;
     min-height: 100vh;
     transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+}
+
+/* Add background decorations for light mode */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: linear-gradient(to bottom, #75c6ef, #b5e6ff);
+    opacity: 0.8;
+}
+
+/* Clouds for light mode */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 24' fill='%23ffffff' opacity='0.8'%3E%3Cpath d='M44,13.6c0-4.4-3.5-8-7.9-8c-0.2,0-0.4,0-0.6,0c-1.6-2.9-4.6-4.9-8.1-4.9c-5.1,0-9.3,4.1-9.3,9.2c0,0.2,0,0.5,0,0.7 C16.1,11,14.7,12,14.7,14c0,2.5,2,4.4,4.4,4.4h22c3.3,0,6.5-2.9,6.5-5.9C47.6,12.5,44,13.6,44,13.6z'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 24' fill='%23ffffff' opacity='0.6'%3E%3Cpath d='M34,15c0-4.4-3.5-8-7.9-8c-0.2,0-0.4,0-0.6,0c-1.6-2.9-4.6-4.9-8.1-4.9c-5.1,0-9.3,4.1-9.3,9.2c0,0.2,0,0.5,0,0.7 C6.1,12.4,4.7,13.4,4.7,15.4c0,2.5,2,4.4,4.4,4.4h22c3.3,0,6.5-2.9,6.5-5.9C37.6,13.9,34,15,34,15z'/%3E%3C/svg%3E");
+    background-position: 
+        calc(100% - 50px) calc(20% + var(--cloud-y1, 0px)), 
+        15% calc(35% + var(--cloud-y2, 0px));
+    background-repeat: no-repeat;
+    animation: 
+        float-clouds 120s linear infinite,
+        float-clouds-y 8s ease-in-out infinite;
+}
+
+/* Birds for light mode */
+[data-theme="light"] .content::before {
+    content: "";
+    position: fixed;
+    top: 15%;
+    left: 10%;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='10' viewBox='0 0 20 10' fill='%23333' opacity='0.7'%3E%3Cpath d='M10 0C8.7 2 7.3 3 5 3 2.7 3 1.3 2 0 0 1.3 2 2.7 4 5 4 7.3 4 8.7 2 10 0ZM20 0C18.7 2 17.3 3 15 3 12.7 3 11.3 2 10 0 11.3 2 12.7 4 15 4 17.3 4 18.7 2 20 0Z'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='7.5' viewBox='0 0 20 10' fill='%23333' opacity='0.5'%3E%3Cpath d='M10 0C8.7 2 7.3 3 5 3 2.7 3 1.3 2 0 0 1.3 2 2.7 4 5 4 7.3 4 8.7 2 10 0ZM20 0C18.7 2 17.3 3 15 3 12.7 3 11.3 2 10 0 11.3 2 12.7 4 15 4 17.3 4 18.7 2 20 0Z'/%3E%3C/svg%3E");
+    background-position: 50% 10%, 80% 20%;
+    background-repeat: no-repeat;
+    animation: float-birds 60s linear infinite;
+}
+
+/* Dark mode background */
+[data-theme="dark"] body::before {
+    background: linear-gradient(to bottom, #070b34, #1a1b46);
+    opacity: 1;
+}
+
+/* Stars for dark mode */
+[data-theme="dark"] body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-image: 
+        radial-gradient(1px 1px at 25px 5px, white, rgba(255,255,255,0)), 
+        radial-gradient(1px 1px at 50px 25px, white, rgba(255,255,255,0)), 
+        radial-gradient(2px 2px at 125px 20px, white, rgba(255,255,255,0)), 
+        radial-gradient(2px 2px at 70px 77px, white, rgba(255,255,255,0)), 
+        radial-gradient(2px 2px at 180px 32px, white, rgba(255,255,255,0)), 
+        radial-gradient(1px 1px at 165px 98px, white, rgba(255,255,255,0)), 
+        radial-gradient(2px 2px at 218px 63px, white, rgba(255,255,255,0)), 
+        radial-gradient(1px 1px at 210px 95px, white, rgba(255,255,255,0)),
+        radial-gradient(1.5px 1.5px at 350px 5px, white, rgba(255,255,255,0)), 
+        radial-gradient(1.5px 1.5px at 320px 55px, white, rgba(255,255,255,0));
+    background-repeat: repeat;
+    background-size: 400px 400px;
+    opacity: 0.7;
+    animation: twinkle 3s ease-in-out infinite;
 }
 
 /* Login Page Styles */
@@ -542,7 +624,7 @@ header {
 .btn-cancel {
     background-color: transparent;
     color: var(--text-dark);
-    border: 1px solid var(--border-color);
+    border: 1px var(--border-color) solid;
 }
 
 .btn-cancel:hover {
@@ -561,6 +643,30 @@ header {
 
 [data-theme="dark"] .btn-cancel:hover {
     background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced animations keyframes */
+@keyframes float-clouds {
+    from { 
+        background-position: 
+            calc(100% - 50px) calc(20% + var(--cloud-y1, 0px)), 
+            15% calc(35% + var(--cloud-y2, 0px)); 
+    }
+    to { 
+        background-position: 
+            calc(-100% - 50px) calc(20% + var(--cloud-y1, 0px)), 
+            -85% calc(35% + var(--cloud-y2, 0px)); 
+    }
+}
+
+@keyframes float-clouds-y {
+    0%, 100% { --cloud-y1: 0px; --cloud-y2: 0px; }
+    50% { --cloud-y1: 15px; --cloud-y2: -15px; }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 0.3; }
 }
 
 /* Responsive layout */
